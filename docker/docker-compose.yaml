@@ -1,0 +1,17 @@
+version: '3.5'
+
+services:
+
+  # http://localhost:8080
+  go-service:
+    image: go-service:0.0.1
+    container_name: go-service-srv
+    ports:
+      - '8080:8080'
+    networks:
+      - go-service-network
+
+networks:
+  go-service-network:
+    name: go-service-network
+    driver: bridge
