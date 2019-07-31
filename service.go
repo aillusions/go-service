@@ -28,7 +28,7 @@ func main() {
 
 func bySchedule() {
 	for {
-		fmt.Println("Hello schedule...", token)
+		fmt.Println("Hello scheduler...", token)
 		time.Sleep(1 * time.Second)
 	}
 }
