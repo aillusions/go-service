@@ -1,19 +1,61 @@
 package main
 
 import (
+	"crypto/rand"
 	"fmt"
-	"math/rand"
 	"net/http"
+	"time"
 )
 
+var token string
+
 func main() {
+
+	var err error
+
+	token, err = GenerateRandomString(6)
+	if err != nil {
+		panic(err)
+	}
+	fmt.Println(token)
+
+	go bySchedule()
+
 	http.HandleFunc("/", HelloServer)
 	http.ListenAndServe(":8080", nil)
+
 }
 
-var msg int = rand.Intn(100)
-
+func bySchedule() {
+	for {
+		fmt.Println("Hello schedule...", token)
+		time.Sleep(1 * time.Second)
+	}
+}
 func HelloServer(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello from: %d", msg)
-	fmt.Println("response completed..")
+	fmt.Fprintf(w, "Hello from: %s", token)
+	fmt.Println("response completed..", token)
+}
+
+func GenerateRandomString(n int) (string, error) {
+	const letters = "0123456789ABCDEFGHIJKLMNOPQRSTUVWXYZabcdefghijklmnopqrstuvwxyz-"
+	bytes, err := GenerateRandomBytes(n)
+	if err != nil {
+		return "", err
+	}
+	for i, b := range bytes {
+		bytes[i] = letters[b%byte(len(letters))]
+	}
+	return string(bytes), nil
+}
+
+func GenerateRandomBytes(n int) ([]byte, error) {
+	b := make([]byte, n)
+	_, err := rand.Read(b)
+	// Note that err == nil only if we read len(b) bytes.
+	if err != nil {
+		return nil, err
+	}
+
+	return b, nil
 }

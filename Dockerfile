@@ -1,8 +1,7 @@
-FROM golang:1.9.2
-WORKDIR /go/src/go-service/app/
-COPY . .
-RUN CGO_ENABLED=0 GOOS=linux go build .
+FROM golang:1.11.5-alpine3.9
 
-FROM scratch
-COPY --from=0 /go/src/go-service/app/app .
+COPY service.go .
+
+RUN go build -o /app
+
 ENTRYPOINT ["/app"]
