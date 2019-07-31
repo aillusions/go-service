@@ -5,5 +5,5 @@ metadata:
 spec:
   containers:
     - name: hello-go-container
-      image: go-service
+      image: aillusions/go-service
       imagePullPolicy: IfNotPresent

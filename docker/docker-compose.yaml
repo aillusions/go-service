@@ -4,7 +4,7 @@ services:
 
   # http://localhost:8080
   go-service:
-    image: go-service:0.0.1
+    image: aillusions/go-service:0.0.1
     container_name: go-service-srv
     ports:
       - '8080:8080'
