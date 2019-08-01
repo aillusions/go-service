@@ -14,3 +14,5 @@ brew install skaffold
 skaffold dev
 
 skaffold delete
+
+while true; do cont=$(curl -s http://localhost:30001); echo "$var: $cont"; var=$((var+1)); sleep 0; done
