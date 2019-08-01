@@ -33,7 +33,7 @@ func bySchedule() {
 	}
 }
 func HelloServer(w http.ResponseWriter, r *http.Request) {
-	fmt.Fprintf(w, "Hello from: %s", token)
+	fmt.Fprintf(w, "Hello remote from: %s", token)
 	fmt.Println("response completed..", token)
 }
 
