@@ -2,8 +2,27 @@ apiVersion: v1
 kind: Pod
 metadata:
   name: hello-go-pod
+  labels:
+    run: hello-go-pod
 spec:
   containers:
     - name: hello-go-container
       image: aillusions/go-service
       imagePullPolicy: IfNotPresent
+      ports:
+        - containerPort: 8080
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: hello-go-service
+  labels:
+    run: hello-go-service
+spec:
+  type: NodePort
+  ports:
+    - port: 8080
+      targetPort: 8080
+      nodePort: 30001
+  selector:
+    run: hello-go-pod
